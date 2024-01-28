@@ -1,79 +1,67 @@
-#Importing stock data and visualising with python and power bi
-# Step 1 install libraries on terminal
+Importing stock data and visualising with python and power bi
+Step by step walk through
+*Note - you i used the python script within power BI to Execute this project!
 
+#Step 1 install libraries on terminal
 pip install yfinance
 pip install matplotlib
 pip install pandas
 
-# Step 2 open Power BI and get data from python script
-
-
-# Step 3 import libraries
+# Step 2 open Power BI, select get data, select python script
+#type in the script
 
 import pandas as pd
 import yfinance as yf
-
-	
 ticker = "TSLA"
-	#you can always go the transform data, source(settings) to edit the 	ticker in python script
-
+#you can always go the transform data, source(settings) to edit the ticker in python script
 data = yf.download(ticker, start = "2021-01-01", end = "2024-01-01")
-
 #To set date as a column
-
 data.reset_index(inplace=True)
 data
 
+#Step 3 from report view, select py as visialisation
 #To show line chart (matplotlib)
-
 import matplotlib.pyplot as plt
 plt.plot(dataset['Date'], dataset['Close'], color='blue')
 plt.show()
 
 #To show area chart
-
 import matplotlib.pyplot as plt
 plt.fill_between(dataset['Date'], dataset['Close'], color='orange')
 plt.plot(dataset['Date'], dataset['Close'], color='blue')
 plt.show()
 
 #To show line chart (seaborn)
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.lineplot(data=dataset, x = 'Date', y = 'Close')
 plt.show()
 
 #To show Box chart
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.boxplot(data=dataset, y = 'Close')
 plt.show()
 
 #To show Violin chart(Close)
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.violinplot(data=dataset, y = 'Close')
 plt.show()
 
 #To show Violin chart(Volume)
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.violinplot(data=dataset, y = 'Volume')
 plt.show()
 
 #To show Violin chart (Volume, split by quarter)
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.violinplot(data=dataset, x = 'Year', y = 'Volume', hue = 'Quarter')
 plt.show()
 
 #To show Histogram chart (Volume, split by year)
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 sns.histplot(data=dataset, x = 'Volume', hue = 'Year', kde = True)
@@ -81,15 +69,13 @@ plt.show()
 
 
 #To show Scatterplot chart
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 volume = dataset['Volume']
 close = dataset ['Close']
 date = dataset ['Year']
 
-	#up & down to color bubbles in scatterplot
-
+#up & down to color bubbles in scatterplot
 dataset['up_down'] = ['Up' if price >0 else 'Down' for price in (close-close.shift(1))]
 
 	#compares todays close to yesterday, 'green' if it goes up, 'red' if it goes down, 'alpha' is transparency.
